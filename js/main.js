@@ -1,9 +1,7 @@
+$(document).ready(function () {
+    var $testInput = $('input').first().focus();
 
-     $(function () {
-         jsKeyboard.init("virtualKeyboard");
-
-         //first input focus
-         var $firstInput = $(':input').first().focus();
-         jsKeyboard.currentElement = $firstInput;
-         jsKeyboard.currentElementCursorPosition = 0;
-     });
+    Keyboard.init("keyboard_container");
+    Keyboard.currentInput = $testInput;
+    Keyboard.currentCursorPosition = 0;
+});
