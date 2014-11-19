@@ -10,7 +10,7 @@
 ## Todo
 
 - [x] responsive button size
-    - [ ] contained to width and height
+    - [x] contained to width and height
 - [ ] add special keys
     - [ ] spacebar
     - [ ] delete
