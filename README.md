@@ -24,3 +24,5 @@
     - [ ] shift
 - [ ] submit handler
 - [ ] support for <IE9
+
+Forked and detached from [https://github.com/sdeering/onscreenkeyboard](https://github.com/sdeering/onscreenkeyboard)
