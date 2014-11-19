@@ -2,8 +2,7 @@ function Keyboard(options) {
     return {
         OPTIONS: {
             boardContainer: null,
-            initInput: null,
-            layout: {}
+            initInput: null
         },
         init: function () {
             var that = this;
@@ -155,51 +154,41 @@ function Keyboard(options) {
                 this.currentCursorPosition = 0;
             this.currentSelection = null;
         },
-    /**
-     * @refactor 
-     * add modifier keys
-     * add special characters
-     */
         basicLayout: {
-        //     uppercase: [
-        //         // Q, W, E, R, T, Y, U, I, O, P,
-        //         { value: 81, buttonClass: 'row-start' },{ value: 87 },{ value: 69 },{ value: 82 },{ value: 84 },{ value: 89 },{ value: 85 },{ value: 73 },{ value: 79 },{ value: 80 },
-        //         // A, S, D, F, G, H, J, K, L,
-        //         { value: 65, buttonClass: 'row-start' },{ value: 83 },{ value: 68 },{ value: 70 },{ value: 71 },{ value: 72 },{ value: 74 },{ value: 75 },{ value: 76 },
-        //         // Z, X, C, V, B, N, M
-        //         { value: 90, buttonClass: 'row-start' },{ value: 88 },{ value: 67 },{ value: 86 },{ value: 66 },{ value: 78 },{ value: 77 }
-        //     ],
-            lowercase: {
-                row1: [{ value: 'q' },{ value: 'w' },{ value: 'e' },{ value: 'r' },{ value: 't' },{ value: 'y' },{ value: 'u' },{ value: 'i' },{ value: 'o' },{ value: 'p' }],
-                row2: [{ value: 'a' },{ value: 's' },{ value: 'd' },{ value: 'f' },{ value: 'g' },{ value: 'h' },{ value: 'j' },{ value: 'k' },{ value: 'l' }],
-                row3: [{ value: 'z' },{ value: 'x' },{ value: 'c' },{ value: 'v' },{ value: 'b' },{ value: 'n' },{ value: 'm' }]
+            uppercase: {
+                row1: [{ value: 'Q' },{ value: 'W' },{ value: 'E' },{ value: 'R' },{ value: 'T' },{ value: 'Y' },{ value: 'U' },{ value: 'I' },{ value: 'O' },{ value: 'P' }],
+                row2: [{ value: 'A' },{ value: 'S' },{ value: 'D' },{ value: 'F' },{ value: 'G' },{ value: 'H' },{ value: 'J' },{ value: 'K' },{ value: 'L' }],
+                row3: [{ value: 'Z' },{ value: 'X' },{ value: 'C' },{ value: 'V' },{ value: 'B' },{ value: 'N' },{ value: 'M' }]
             },
+            // lowercase: {
+            //     row1: [{ value: 'q' },{ value: 'w' },{ value: 'e' },{ value: 'r' },{ value: 't' },{ value: 'y' },{ value: 'u' },{ value: 'i' },{ value: 'o' },{ value: 'p' }],
+            //     row2: [{ value: 'a' },{ value: 's' },{ value: 'd' },{ value: 'f' },{ value: 'g' },{ value: 'h' },{ value: 'j' },{ value: 'k' },{ value: 'l' }],
+            //     row3: [{ value: 'z' },{ value: 'x' },{ value: 'c' },{ value: 'v' },{ value: 'b' },{ value: 'n' },{ value: 'm' }]
+            // },
             numeric: {
                 row1: [{ value: '1' },{ value: '2' },{ value: '3' }],
                 row2: [{ value: '4' },{ value: '5' },{ value: '6' }],
                 row3: [{ value: '7' },{ value: '8' },{ value: '9' }],
                 row4: [{ value: '0' }]
             },
-        //     symbolic: [
-        //         { value: 32 },{ value: 33 },{ value: 34 },{ value: 35 },{ value: 36 },{ value: 37 },{ value: 38 },{ value: 39 },
-        //         { value: 40 },{ value: 41 },{ value: 42 },{ value: 43 },{ value: 44 },{ value: 45 },{ value: 46 },{ value: 47 },
-        //         { value: 58 },{ value: 59 },
-        //         { value: 60 },{ value: 61 },{ value: 62 },{ value: 63 },{ value: 64 },
-        //         { value: 91 },{ value: 92 },{ value: 93 },{ value: 94 },{ value: 95 },
-        //         { value: 123 },{ value: 124 },{ value: 125 },{ value: 126 },
-        //         { value: 163 },{ value: 165 },
-
-        //         { value: "Delete", isChar: false, buttonClass: 'del', onclick: 'Keyboard.del()' },
-        //         { value: "abc", isChar: false, buttonClass: 'lowercase', onclick: 'Keyboard.changeToLowercase();' },
-        //         { value: "ABC", isChar: false, buttonClass: 'symbolsright', onclick: 'Keyboard.changeTouppercase();' },
-        //         { value: "123", isChar: false, buttonClass: 'numberleft', onclick: 'Keyboard.changeToNumber();' },
-        //         { value: "#$+", isChar: false, buttonClass: 'symbolsright', onclick: 'Keyboard.changeToSymbols();' }
-        //     ]
+            // symbolic: {
+            //     row1: [{ value: 32 },{ value: 33 },{ value: 34 },{ value: 35 },{ value: 36 },{ value: 37 },{ value: 38 },{ value: 39 }],
+            //     row2: [{ value: 40 },{ value: 41 },{ value: 42 },{ value: 43 },{ value: 44 },{ value: 45 },{ value: 46 },{ value: 47 }],
+            //     row3: [{ value: 58 },{ value: 59 }],
+            //     row4: [{ value: 60 },{ value: 61 },{ value: 62 },{ value: 63 },{ value: 64 }],
+            //     row5: [{ value: 91 },{ value: 92 },{ value: 93 },{ value: 94 },{ value: 95 }],
+            //     row6: [{ value: 123 },{ value: 124 },{ value: 125 },{ value: 126 }],
+            //     row7: [{ value: 163 },{ value: 165 }]
+            // },
+            // special: {
+            //     row1: [{ value: "Delete", isChar: false, buttonClass: 'del', onclick: 'Keyboard.del()' }],
+            //     row2: [{ value: "abc", isChar: false, buttonClass: 'lowercase', onclick: 'Keyboard.changeToLowercase();' }],
+            //     row3: [{ value: "ABC", isChar: false, buttonClass: 'symbolsright', onclick: 'Keyboard.changeTouppercase();' }],
+            //     row4: [{ value: "123", isChar: false, buttonClass: 'numberleft', onclick: 'Keyboard.changeToNumber();' }],
+            //     row5: [{ value: "#$+", isChar: false, buttonClass: 'symbolsright', onclick: 'Keyboard.changeToSymbols();' }]
+            // }
         }
     }
-
-    this.init();
-    return this;
 }
 
 jQuery.fn.getCursorPosition = function () {

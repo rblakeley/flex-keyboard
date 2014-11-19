@@ -9,11 +9,8 @@
 
 ## Todo
 
-- [x] keys data as characters instead of character codes
 - [x] responsive button size
     - [ ] contained to width and height
-- [ ] minimal default styles in javascript construction
-
 - [ ] add cursor move keys (left, right)
 - [ ] initialize input focus
 - [ ] accomodate physical keyboard use
