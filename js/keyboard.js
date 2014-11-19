@@ -15,7 +15,7 @@ function Keyboard(options) {
             this.currentCursorPosition = 0;
 
             this.currentInput.focus();
-            this.generateBoard(layout);
+            this.board = this.generateBoard(layout);
             
             // input focus handler
             $(':input').not('[type="reset"], [type="submit"]')
@@ -53,14 +53,14 @@ function Keyboard(options) {
         generateBoard: function (layout) {
             var that = this;
             var $boardContainer = this.options.boardContainer;
-            var $board = $('<div>', {'class': 'board-container'});
+            var $board = $('<div>', {'class': 'board flex-row'});
             var modifier;
             
             for (modifier in layout) {
-                var $modContainer = $('<div>', {'class': modifier});
+                var $modContainer = $('<div>', {'class': modifier + ' board-mod'});
 
                 $.each(layout[modifier], function (rowName, keys) {
-                    var $row = $('<div>', {'class': 'row board-container'});
+                    var $row = $('<div>', {'class': 'flex-row'});
                     var i = 0;
 
                     for (i; i < keys.length; i += 1) {
@@ -75,7 +75,7 @@ function Keyboard(options) {
                 $board.append($modContainer);
             }
 
-            $boardContainer.append($board);
+            return $boardContainer.append($board);;
         },
         /**
          * Create the key DOM.
@@ -165,12 +165,12 @@ function Keyboard(options) {
             //     row2: [{ value: 'a' },{ value: 's' },{ value: 'd' },{ value: 'f' },{ value: 'g' },{ value: 'h' },{ value: 'j' },{ value: 'k' },{ value: 'l' }],
             //     row3: [{ value: 'z' },{ value: 'x' },{ value: 'c' },{ value: 'v' },{ value: 'b' },{ value: 'n' },{ value: 'm' }]
             // },
-            numeric: {
-                row1: [{ value: '1' },{ value: '2' },{ value: '3' }],
-                row2: [{ value: '4' },{ value: '5' },{ value: '6' }],
-                row3: [{ value: '7' },{ value: '8' },{ value: '9' }],
-                row4: [{ value: '0' }]
-            },
+            // numeric: {
+            //     row1: [{ value: '1' },{ value: '2' },{ value: '3' }],
+            //     row2: [{ value: '4' },{ value: '5' },{ value: '6' }],
+            //     row3: [{ value: '7' },{ value: '8' },{ value: '9' }],
+            //     row4: [{ value: '0' }]
+            // },
             // symbolic: {
             //     row1: [{ value: 32 },{ value: 33 },{ value: 34 },{ value: 35 },{ value: 36 },{ value: 37 },{ value: 38 },{ value: 39 }],
             //     row2: [{ value: 40 },{ value: 41 },{ value: 42 },{ value: 43 },{ value: 44 },{ value: 45 },{ value: 46 },{ value: 47 }],

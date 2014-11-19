@@ -11,12 +11,16 @@
 
 - [x] responsive button size
     - [ ] contained to width and height
-- [ ] add cursor move keys (left, right)
-- [ ] initialize input focus
-- [ ] accomodate physical keyboard use
-    - [x] standard keys
-    - [ ] delete key
+- [ ] add special keys
     - [ ] spacebar
-    - [ ] enter
+    - [ ] delete
+    - [ ] symbols
+    - [ ] cursor move (left, right)
+- [ ] accomodate physical keyboard use
+    - [ ] standard keys
+    - [ ] delete
+    - [ ] symbols
+    - [ ] cursor move
     - [ ] shift
+- [ ] submit handler
 - [ ] support for <IE9
