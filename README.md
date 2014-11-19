@@ -9,14 +9,17 @@
 
 ## Todo
 
-- [ ] minimal default styles in javascript construction
+- [x] keys data as characters instead of character codes
 - [x] responsive button size
+    - [ ] contained to width and height
+- [ ] minimal default styles in javascript construction
+
 - [ ] add cursor move keys (left, right)
 - [ ] initialize input focus
 - [ ] accomodate physical keyboard use
-      - [x] standard keys
-      - [ ] delete key
-      - [ ] spacebar
-      - [ ] enter
-      - [ ] shift
+    - [x] standard keys
+    - [ ] delete key
+    - [ ] spacebar
+    - [ ] enter
+    - [ ] shift
 - [ ] support for <IE9
