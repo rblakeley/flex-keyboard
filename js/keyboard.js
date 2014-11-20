@@ -5,23 +5,22 @@ function Keyboard(options) {
             initInput: null
         },
         init: function () {
-            var that = this;
-            var initInput;
-            var layout;
+            var that = this,
+                layout;
 
             this.options = $.extend({}, this.OPTIONS, options);
-            layout = this.options.layout ? this.options.layout : this.basicLayout;
+            layout = this.options.layout || this.basicLayout;
             this.currentInput = this.options.initInput;
             this.currentCursorPosition = 0;
 
             this.currentInput.focus();
             this.board = this.generateBoard(layout);
-            
+
             // input focus handler
             $(':input').not('[type="reset"], [type="submit"]')
-                .on('focus, click', function (e) {
+                .on('focus, click', function () {
                     var $input = that.currentInput = $(this);
-                
+
                     that.currentCursorPosition = $input.getCursorPosition();
                     that.currentSelection = $input.getSelection();
                     // @todo accomodate typing on physical keyboard
@@ -40,7 +39,7 @@ function Keyboard(options) {
                     //         elem.click();
                     //     }
                     // };
-                    console.log('keyboard is now focused on ' + that.currentInput.attr('name') 
+                    console.log('keyboard is now focused on ' + that.currentInput.attr('name')
                                 + ' at pos(' + that.currentCursorPosition + ')');
                 });
         },
@@ -51,31 +50,35 @@ function Keyboard(options) {
          * rows of keys which are displayed together.
          */
         generateBoard: function (layout) {
-            var that = this;
-            var $boardContainer = this.options.boardContainer;
-            var $board = $('<div>', {'class': 'board'});
-            var modifier;
-            
+            var that = this,
+                $boardContainer = this.options.boardContainer,
+                $board = $('<div>', {'class': 'board'}),
+                modifier,
+                $modContainer;
+
             for (modifier in layout) {
-                var $modContainer = $('<div>', {'class':  'board-mod ' + modifier });
+                if (layout.hasOwnProperty(modifier)) {
+                    $modContainer = $('<div>', {'class':  'board-mod ' + modifier });
 
-                $.each(layout[modifier], function (rowName, keys) {
-                    var $row = $('<div>', {'class': 'flex-row'});
-                    var i = 0;
+                    $.each(layout[modifier], function createRow(rowName, keys) {
+                        var $row = $('<div>', {'class': 'flex-row'}),
+                            i = 0,
+                            $button;
 
-                    for (i; i < keys.length; i += 1) {
-                        var $button = that.generateButton(keys[i]);
-                        
-                        $row.append($button);
-                    }
+                        for (i; i < keys.length; i += 1) {
+                            $button = that.generateButton(keys[i]);
 
-                    $modContainer.append($row); 
-                });
+                            $row.append($button);
+                        }
 
-                $board.append($modContainer);
+                        $modContainer.append($row);
+                    });
+
+                    $board.append($modContainer);
+                }
             }
 
-            return $boardContainer.append($board);;
+            return $boardContainer.append($board);
         },
         /**
          * Create the key DOM.
@@ -88,13 +91,13 @@ function Keyboard(options) {
          * which matches the name of a Keyboard method.
          */
         generateButton: function (keyData) {
-            var text = keyData.value;
-            var $key = $('<div>', {'class': 'key', text: text});
-            var $button = $('<div>', {'class': 'button'});
-            var buttonClass = keyData.buttonClass;
-            var onclick = keyData.onclick ? this[keyData.onclick]() : this.write(keyData.value);
-            
-            if (buttonClass) $button.addClass(buttonClass);
+            var text = keyData.value,
+                $key = $('<div>', { 'class': 'key', html: text }),
+                $button = $('<div>', { 'class': 'button' }),
+                buttonClass = keyData.buttonClass,
+                onclick = keyData.onclick ? this[keyData.onclick]() : this.write($key.text());
+
+            if (buttonClass) { $button.addClass(buttonClass); }
             $button.on('click', onclick).append($key);
 
             return $button;
@@ -103,17 +106,16 @@ function Keyboard(options) {
             var that = this;
 
             return function () {
-                var text = that.currentInput.val();
-                var position = that.currentCursorPosition;
-                var selection = that.currentSelection;
-                var output = (function () {
-                    if (selection) {
-                        var tail = text.slice(text.indexOf(selection) + selection.length);
-                        return [text.slice(0, text.indexOf(selection)), character, tail].join('');
-                    } else {
+                var text = that.currentInput.val(),
+                    position = that.currentCursorPosition,
+                    selection = that.currentSelection,
+                    output = (function () {
+                        if (selection) {
+                            var tail = text.slice(text.indexOf(selection) + selection.length);
+                            return [text.slice(0, text.indexOf(selection)), character, tail].join('');
+                        }
                         return [text.slice(0, position), character, text.slice(position)].join('');
-                    }
-                }());
+                    }());
 
                 that.currentInput.val(output);
                 that.currentCursorPosition += 1;
@@ -124,53 +126,51 @@ function Keyboard(options) {
             var that = this;
 
             return function () {
-                var text = that.currentInput.val();
-                var position = that.currentCursorPosition;
-                var selection = that.currentSelection;
-                var output = (function () {
-                    if (selection) {
-                        var tail = text.slice(text.indexOf(selection) + selection.length);
-                        return [text.slice(0, text.indexOf(selection)), tail].join('')
-                    } else {
+                var text = that.currentInput.val(),
+                    position = that.currentCursorPosition,
+                    selection = that.currentSelection,
+                    output = (function () {
+                        if (selection) {
+                            var tail = text.slice(text.indexOf(selection) + selection.length);
+                            return [text.slice(0, text.indexOf(selection)), tail].join('');
+                        }
                         return [text.slice(0, position - 1), text.slice(position)].join('');
-                    }
-                }());
+                    }());
 
                 that.currentInput.val(output);
-                if (!selection) 
-                    that.currentCursorPosition -= 1;
-                if (that.currentCursorPosition < 0)
-                    that.currentCursorPosition = 0;
+                if (!selection) { that.currentCursorPosition -= 1; }
+                if (that.currentCursorPosition < 0) { that.currentCursorPosition = 0; }
                 that.currentSelection = null;
             };
         },
         basicLayout: {
             uppercase: {
-                row1: [{ value: 'Q' },{ value: 'W' },{ value: 'E' },{ value: 'R' },{ value: 'T' },{ value: 'Y' },{ value: 'U' },{ value: 'I' },{ value: 'O' },{ value: 'P' }],
-                row2: [{ value: 'A' },{ value: 'S' },{ value: 'D' },{ value: 'F' },{ value: 'G' },{ value: 'H' },{ value: 'J' },{ value: 'K' },{ value: 'L' }],
-                row3: [{ value: 'Z' },{ value: 'X' },{ value: 'C' },{ value: 'V' },{ value: 'B' },{ value: 'N' },{ value: 'M' }]
+                row1: [{ value: "Q" }, { value: "W" }, { value: "E" }, { value: "R" }, { value: "T" }, { value: "Y" }, { value: "U" }, { value: "I" }, { value: "O" }, { value: "P" }],
+                row2: [{ value: "A" }, { value: "S" }, { value: "D" }, { value: "F" }, { value: "G" }, { value: "H" }, { value: "J" }, { value: "K" }, { value: "L" }],
+                row3: [{ value: "Z" }, { value: "X" }, { value: "C" }, { value: "V" }, { value: "B" }, { value: "N" }, { value: "M" }]
             },
             // lowercase: {
-            //     row1: [{ value: 'q' },{ value: 'w' },{ value: 'e' },{ value: 'r' },{ value: 't' },{ value: 'y' },{ value: 'u' },{ value: 'i' },{ value: 'o' },{ value: 'p' }],
-            //     row2: [{ value: 'a' },{ value: 's' },{ value: 'd' },{ value: 'f' },{ value: 'g' },{ value: 'h' },{ value: 'j' },{ value: 'k' },{ value: 'l' }],
-            //     row3: [{ value: 'z' },{ value: 'x' },{ value: 'c' },{ value: 'v' },{ value: 'b' },{ value: 'n' },{ value: 'm' }]
+            //     row1: [{ value: "q" }, { value: "w" }, { value: "e" }, { value: "r" }, { value: "t" }, { value: "y" }, { value: "u" }, { value: "i" }, { value: "o" }, { value: "p" }],
+            //     row2: [{ value: "a" }, { value: "s" }, { value: "d" }, { value: "f" }, { value: "g" }, { value: "h" }, { value: "j" }, { value: "k" }, { value: "l" }],
+            //     row3: [{ value: "z" }, { value: "x" }, { value: "c" }, { value: "v" }, { value: "b" }, { value: "n" }, { value: "m" }]
             // },
             numeric: {
-                row1: [{ value: '1' },{ value: '2' },{ value: '3' }],
-                row2: [{ value: '4' },{ value: '5' },{ value: '6' }],
-                row3: [{ value: '7' },{ value: '8' },{ value: '9' }],
-                row4: [{ value: '0' }]
+                row1: [{ value: "1" }, { value: "2" }, { value: "3" }],
+                row2: [{ value: "4" }, { value: "5" }, { value: "6" }],
+                row3: [{ value: "7" }, { value: "8" }, { value: "9" }],
+                row4: [{ value: "0" }]
             },
             special: {
-                row1: [{ value: "Delete", buttonClass: 'del', onclick: 'del' }]
+                row1: [{ value: "&nbsp;", buttonClass: 'spacebar' }],
+                row2: [{ value: "Delete", buttonClass: 'del', onclick: 'del' }]
             }
         }
-    }
+    };
 }
 
 jQuery.fn.getCursorPosition = function () {
-    var input = this[0];
-    var position;
+    var input = this[0],
+        position;
 
     if (typeof input.selectionStart === 'number') {
         position = input.selectionStart;
@@ -178,18 +178,18 @@ jQuery.fn.getCursorPosition = function () {
     // @todo support <IE9
 
     return position;
-}
+};
 
 jQuery.fn.getSelection = function () {
-    var input = this[0];
-    var text;
+    var input = this[0],
+        text;
 
     if (window.getSelection
-        && typeof input.selectionStart === 'number' 
-        && typeof input.selectionEnd === 'number') {
+            && typeof input.selectionStart === 'number'
+            && typeof input.selectionEnd === 'number') {
         text = input.value.substring(input.selectionStart, input.selectionEnd);
-    } 
+    }
     // @todo support <IE9
 
     return text;
-}
+};

@@ -20,6 +20,7 @@
     - [ ] symbols
     - [ ] cursor move
     - [ ] shift
+- [ ] should modifier be an array of arrays?
 - [ ] disable tap zoom
 - [ ] submit handler
 - [ ] warning for unsupported browsers
