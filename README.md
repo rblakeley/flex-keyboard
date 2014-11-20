@@ -24,6 +24,7 @@
     - [ ] shift
 - [ ] disable tap zoom
 - [ ] submit handler
+- [ ] warning for unsupported browsers
 - [ ] support for <IE9
 
 Forked and detached from [https://github.com/sdeering/onscreenkeyboard](https://github.com/sdeering/onscreenkeyboard)
