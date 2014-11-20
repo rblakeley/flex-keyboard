@@ -22,6 +22,7 @@
     - [ ] symbols
     - [ ] cursor move
     - [ ] shift
+- [ ] disable tap zoom
 - [ ] submit handler
 - [ ] support for <IE9
 
