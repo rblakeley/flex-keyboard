@@ -53,11 +53,11 @@ function Keyboard(options) {
         generateBoard: function (layout) {
             var that = this;
             var $boardContainer = this.options.boardContainer;
-            var $board = $('<div>', {'class': 'board flex-row'});
+            var $board = $('<div>', {'class': 'board'});
             var modifier;
             
             for (modifier in layout) {
-                var $modContainer = $('<div>', {'class': modifier + ' board-mod'});
+                var $modContainer = $('<div>', {'class':  'board-mod ' + modifier });
 
                 $.each(layout[modifier], function (rowName, keys) {
                     var $row = $('<div>', {'class': 'flex-row'});
@@ -83,35 +83,21 @@ function Keyboard(options) {
          * is the string which becomes the button label. 
          * keyData has optional properties:
          * 'buttonClass' for a custom CSS selector, and 
-         * 'onclick' for custom event handling.
+         * 'onclick' for custom event handling. The value
+         * for 'onclick' in keyData should be a string
+         * which matches the name of a Keyboard method.
          */
         generateButton: function (keyData) {
             var text = keyData.value;
             var $key = $('<div>', {'class': 'key', text: text});
             var $button = $('<div>', {'class': 'button'});
             var buttonClass = keyData.buttonClass;
-            var onclick = keyData.onclick ? keyData.onclick : this.write(keyData.value);
+            var onclick = keyData.onclick ? this[keyData.onclick]() : this.write(keyData.value);
             
             if (buttonClass) $button.addClass(buttonClass);
             $button.on('click', onclick).append($key);
 
             return $button;
-        },
-        changeToLowercase: function () {
-            $('#keyboard').find('.uppercase, .numeric, .symbolic').css('display', 'none');
-            $('#keyboard').find('.lowercase').css('display', 'block');
-        },
-        changeTouppercase: function () {
-            $('#keyboard').find('.uppercase').css('display', 'block');
-            $('#keyboard').find('.lowercase, .numeric, .symbolic').css('display', 'none');
-        },
-        changeToNumber: function () {
-            $('#keyboard').find('.numeric').css('display', 'block');
-            $('#keyboard').find('.symbolic, .uppercase, .lowercase').css('display', 'none');
-        },
-        changeToSymbols: function () {
-            $('#keyboard').find('.uppercase, .numeric, .lowercase').css('display', 'none');
-            $('#keyboard').find('.symbolic').css('display', 'block');
         },
         write: function (character) {
             var that = this;
@@ -135,24 +121,28 @@ function Keyboard(options) {
             };
         },
         del: function () {
-            var text = this.currentInput.val();
-            var position = this.currentCursorPosition;
-            var selection = this.currentSelection;
-            var output = (function () {
-                if (selection) {
-                    var tail = text.slice(text.indexOf(selection) + selection.length);
-                    return [text.slice(0, text.indexOf(selection)), tail].join('')
-                } else {
-                    return [text.slice(0, position - 1), text.slice(position)].join('');
-                }
-            }());
+            var that = this;
 
-            this.currentInput.val(output);
-            if (!selection) 
-                this.currentCursorPosition -= 1;
-            if (this.currentCursorPosition < 0)
-                this.currentCursorPosition = 0;
-            this.currentSelection = null;
+            return function () {
+                var text = that.currentInput.val();
+                var position = that.currentCursorPosition;
+                var selection = that.currentSelection;
+                var output = (function () {
+                    if (selection) {
+                        var tail = text.slice(text.indexOf(selection) + selection.length);
+                        return [text.slice(0, text.indexOf(selection)), tail].join('')
+                    } else {
+                        return [text.slice(0, position - 1), text.slice(position)].join('');
+                    }
+                }());
+
+                that.currentInput.val(output);
+                if (!selection) 
+                    that.currentCursorPosition -= 1;
+                if (that.currentCursorPosition < 0)
+                    that.currentCursorPosition = 0;
+                that.currentSelection = null;
+            };
         },
         basicLayout: {
             uppercase: {
@@ -165,28 +155,15 @@ function Keyboard(options) {
             //     row2: [{ value: 'a' },{ value: 's' },{ value: 'd' },{ value: 'f' },{ value: 'g' },{ value: 'h' },{ value: 'j' },{ value: 'k' },{ value: 'l' }],
             //     row3: [{ value: 'z' },{ value: 'x' },{ value: 'c' },{ value: 'v' },{ value: 'b' },{ value: 'n' },{ value: 'm' }]
             // },
-            // numeric: {
-            //     row1: [{ value: '1' },{ value: '2' },{ value: '3' }],
-            //     row2: [{ value: '4' },{ value: '5' },{ value: '6' }],
-            //     row3: [{ value: '7' },{ value: '8' },{ value: '9' }],
-            //     row4: [{ value: '0' }]
-            // },
-            // symbolic: {
-            //     row1: [{ value: 32 },{ value: 33 },{ value: 34 },{ value: 35 },{ value: 36 },{ value: 37 },{ value: 38 },{ value: 39 }],
-            //     row2: [{ value: 40 },{ value: 41 },{ value: 42 },{ value: 43 },{ value: 44 },{ value: 45 },{ value: 46 },{ value: 47 }],
-            //     row3: [{ value: 58 },{ value: 59 }],
-            //     row4: [{ value: 60 },{ value: 61 },{ value: 62 },{ value: 63 },{ value: 64 }],
-            //     row5: [{ value: 91 },{ value: 92 },{ value: 93 },{ value: 94 },{ value: 95 }],
-            //     row6: [{ value: 123 },{ value: 124 },{ value: 125 },{ value: 126 }],
-            //     row7: [{ value: 163 },{ value: 165 }]
-            // },
-            // special: {
-            //     row1: [{ value: "Delete", isChar: false, buttonClass: 'del', onclick: 'Keyboard.del()' }],
-            //     row2: [{ value: "abc", isChar: false, buttonClass: 'lowercase', onclick: 'Keyboard.changeToLowercase();' }],
-            //     row3: [{ value: "ABC", isChar: false, buttonClass: 'symbolsright', onclick: 'Keyboard.changeTouppercase();' }],
-            //     row4: [{ value: "123", isChar: false, buttonClass: 'numberleft', onclick: 'Keyboard.changeToNumber();' }],
-            //     row5: [{ value: "#$+", isChar: false, buttonClass: 'symbolsright', onclick: 'Keyboard.changeToSymbols();' }]
-            // }
+            numeric: {
+                row1: [{ value: '1' },{ value: '2' },{ value: '3' }],
+                row2: [{ value: '4' },{ value: '5' },{ value: '6' }],
+                row3: [{ value: '7' },{ value: '8' },{ value: '9' }],
+                row4: [{ value: '0' }]
+            },
+            special: {
+                row1: [{ value: "Delete", buttonClass: 'del', onclick: 'del' }]
+            }
         }
     }
 }

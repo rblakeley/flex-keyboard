@@ -9,11 +9,9 @@
 
 ## Todo
 
-- [x] responsive button size
-    - [x] contained to width and height
 - [ ] add special keys
     - [ ] spacebar
-    - [ ] delete
+    - [x] delete
     - [ ] symbols
     - [ ] cursor move (left, right)
 - [ ] accomodate physical keyboard use

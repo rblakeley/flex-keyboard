@@ -1,6 +1,6 @@
-.flex-row { display: flex; justify-content: center; align-items: stretch; }
+.flex-row { display: flex; justify-content: center; } /* align-items: stretch; default */
 .board { max-height: 100%; }
-    .board-mod { display: flex; flex-direction: column; flex-grow: 1; flex-shrink: 1; }
+    .board-mod { display: flex; flex-direction: column; flex-grow: 1; } /* flex-shrink: 1; default */
 
 .button {
     display: inline-block;

@@ -32,8 +32,10 @@ body,
 
 /* Custom keyboard layout
    ========================================================================== */
-.lowercase { flex-grow: 2; }
+.uppercase,
+.numeric { display: inline-block; vertical-align: top; }
 
-.lowercase .flex-row,
-.numeric,
+.uppercase { width: 80%; }
+.numeric { width: 20%; }
+
 .numeric .button { flex-grow: 1; }
