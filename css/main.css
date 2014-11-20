@@ -33,6 +33,7 @@ body,
 /* Custom keyboard layout
    ========================================================================== */
 .lowercase { flex-grow: 2; }
-    .lowercase .flex-row { flex-grow: 1; }
-.numeric { flex-grow: 1; }
-    .numeric .button { flex-grow: 1; }
+
+.lowercase .flex-row,
+.numeric,
+.numeric .button { flex-grow: 1; }
