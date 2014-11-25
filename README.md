@@ -12,7 +12,6 @@
 - [ ] add special keys
     - [ ] submit
     - [ ] toggle caps
-    - [x] cursor move (left, right)
     - [ ] clear field
     - [ ] cancel button
 - [ ] accomodate physical keyboard use
