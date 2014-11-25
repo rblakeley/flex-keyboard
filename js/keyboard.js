@@ -140,12 +140,24 @@ function Keyboard(options) {
                 that.currentSelection = null;
             };
         },
+        submit: function () {
+            // @todo
+        },
+        toggleCaps: function () {
+            // @todo
+        },
+        cursorLeft: function () {
+            // @todo
+        },
+        cursorRight: function () {
+            // @todo
+        },
         basicLayout: {
             uppercase: {
-                row1: [{ value: "Q" }, { value: "W" }, { value: "E" }, { value: "R" }, { value: "T" }, { value: "Y" }, { value: "U" }, { value: "I" }, { value: "O" }, { value: "P" }, { value: "Delete", buttonClass: 'del', onclick: 'del' }],
-                row2: [{ value: "A" }, { value: "S" }, { value: "D" }, { value: "F" }, { value: "G" }, { value: "H" }, { value: "J" }, { value: "K" }, { value: "L" }],
-                row3: [{ value: "Z" }, { value: "X" }, { value: "C" }, { value: "V" }, { value: "B" }, { value: "N" }, { value: "M" }],
-                row4: [{ value: "&nbsp;", buttonClass: 'spacebar' }]
+                row1: [{ value: "Q" }, { value: "W" }, { value: "E" }, { value: "R" }, { value: "T" }, { value: "Y" }, { value: "U" }, { value: "I" }, { value: "O" }, { value: "P" }, { value: "<i class='icon-delete'></i>", buttonClass: 'delete', onclick: 'del' }],
+                row2: [{ value: "A" }, { value: "S" }, { value: "D" }, { value: "F" }, { value: "G" }, { value: "H" }, { value: "J" }, { value: "K" }, { value: "L" }, { value: "\"" }, { value: "GO", buttonClass: 'go', onclick: 'submit' }],
+                row3: [{ value: "<i class='icon-caps'></i>", buttonClass: "caps", onclick: "toggleCaps" }, { value: "Z" }, { value: "X" }, { value: "C" }, { value: "V" }, { value: "B" }, { value: "N" }, { value: "M" }, { value: "," }, { value: "."}, { value: "\'" }, { value: "+" }],
+                row4: [{ value: "", buttonClass: "blank" }, { value: "&nbsp;", buttonClass: 'spacebar' }, { value: "!" }, { value: "?" }, { value: "-" }]
             },
             // lowercase: {
             //     row1: [{ value: "q" }, { value: "w" }, { value: "e" }, { value: "r" }, { value: "t" }, { value: "y" }, { value: "u" }, { value: "i" }, { value: "o" }, { value: "p" }, { value: "Delete", buttonClass: 'del', onclick: 'del' }],
@@ -156,7 +168,7 @@ function Keyboard(options) {
                 row1: [{ value: "7" }, { value: "8" }, { value: "9" }], 
                 row2: [{ value: "4" }, { value: "5" }, { value: "6" }],
                 row3: [{ value: "1" }, { value: "2" }, { value: "3" }],
-                row4: [{ value: "0" }]
+                row4: [{ value: "<i class='icon-cursor-left'></i>", buttonClass: "cursor-left", onclick: "cursorLeft" }, { value: "0" }, { value: "<i class='icon-cursor-right'></i>", buttonClass: "cursor-right", onclick: "cursorRight" }]
             },
         }
     };

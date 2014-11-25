@@ -10,20 +10,18 @@
 ## Todo
 
 - [ ] add special keys
+    - [ ] submit
+    - [ ] toggle caps
+    - [ ] cursor move (left, right)
     - [ ] clear field
     - [ ] cancel button
-    - [ ] symbols
-    - [ ] cursor move (left, right)
 - [ ] accomodate physical keyboard use
     - [ ] standard keys
-    - [ ] delete
-    - [ ] symbols
-    - [ ] cursor move
-    - [ ] shift
-- [ ] should modifier be an array of arrays?
+    - [ ] modifiers
+- [ ] refactor modifier to array of arrays
 - [ ] disable tap zoom
-- [ ] submit handler
 - [ ] add rem and em usage to docs
+- [ ] add fontello to docs
 - [ ] warning for unsupported browsers
 - [ ] support for <IE9
 

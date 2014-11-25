@@ -24,10 +24,6 @@ body,
 /* Custom keyboard layout
    ========================================================================== */
 .uppercase,
-.numeric {
-    display: inline-block;
-    vertical-align: top;
-}
+.numeric { display: inline-block; vertical-align: top; }
 
 .numeric { margin-left: 1.25em; }
-    .numeric .button { flex-grow: 1; }
