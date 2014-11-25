@@ -1,15 +1,16 @@
 function Keyboard(options) {
     return {
         OPTIONS: {
+            inputContainer: null,
             boardContainer: null,
-            initInput: null
+            layout: null
         },
         init: function () {
             var that = this;
 
             this.options = $.extend({}, this.OPTIONS, options);
             this.board = this.generateBoard(this.options.layout || this.basicLayout);
-            this.currentInput = this.options.initInput;
+            this.currentInput = this.generateInput(this.options.inputContainer);
             this.currentCursorPosition = 0;
             this.currentInput.focus();
 
@@ -98,6 +99,24 @@ function Keyboard(options) {
             $button.on('click', onclick).append($key);
 
             return $button;
+        },
+        generateInput: function (container) {
+            var $input = $('<input>', {
+                    'name': 'test_input',
+                    'class': 'board-input',
+                    'type': 'text',
+                    'placeholder': 'Type something...'
+                }),
+                $btnClear = $('<i>', {'class': 'icon-clear'});
+
+            $btnClear.on('click', function () {
+                $input.val("");
+            });
+            
+            container.append($input);
+            container.append($btnClear);
+
+            return $input;
         },
         write: function (character) {
             var that = this;

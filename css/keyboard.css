@@ -23,16 +23,20 @@
     -ms-user-select: none; 
 }
 
-.button.blank,
-.button.cursor-left,
-.button.cursor-right { background-color: #676767; }
 .button.delete { width: 5.3em; color: #676767; }
-.button.spacebar { width: 22.042em; }
 .button.go { width: 5.3em; background: linear-gradient(#208153, #156841); color: #fff; }
 .button.caps { color: #000; }
-.button.blank:active { margin: 0.125em; box-shadow: 0 0.083em #999; }
+.button.spacebar { width: 22.042em; }
+.button.blank,
 .button.cursor-left,
-.button.cursor-right { color: #fff; }
+.button.cursor-right { background-color: #676767; color: #fff; }
+.button.blank:active { margin: 0.125em; box-shadow: 0 0.083em #999; }
 
-[class^="icon-"]:before, 
-[class*=" icon-"]:before { display: inline; }
+[class^="icon-"]:before,
+[class*=" icon-"]:before { display: inline; line-height: 100%; }
+
+.icon-clear { 
+    position: absolute; top: 50%; right: 0;
+    margin-top: -0.57em;
+    font-size: 4.5rem;
+}

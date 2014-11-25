@@ -9,19 +9,22 @@
 
 ## Todo
 
+- [ ] show cursor
+- [ ] add clear out button
 - [ ] add special keys
     - [ ] submit
     - [ ] toggle caps
-    - [ ] clear field
     - [ ] cancel button
 - [ ] accomodate physical keyboard use
     - [ ] standard keys
     - [ ] modifiers
 - [ ] refactor modifier to array of arrays
 - [ ] disable tap zoom
+### Docs
+- [ ] add optional layout parameter to docs
 - [ ] add rem and em usage to docs
 - [ ] add fontello to docs
 - [ ] warning for unsupported browsers
-- [ ] support for <IE9
+    - <IE9
 
 Forked and detached from [https://github.com/sdeering/onscreenkeyboard](https://github.com/sdeering/onscreenkeyboard)
