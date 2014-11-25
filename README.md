@@ -10,8 +10,8 @@
 ## Todo
 
 - [ ] add special keys
-    - [ ] spacebar
-    - [x] delete
+    - [ ] clear field
+    - [ ] cancel button
     - [ ] symbols
     - [ ] cursor move (left, right)
 - [ ] accomodate physical keyboard use
@@ -23,6 +23,7 @@
 - [ ] should modifier be an array of arrays?
 - [ ] disable tap zoom
 - [ ] submit handler
+- [ ] add rem and em usage to docs
 - [ ] warning for unsupported browsers
 - [ ] support for <IE9
 

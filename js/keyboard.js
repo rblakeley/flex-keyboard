@@ -5,16 +5,13 @@ function Keyboard(options) {
             initInput: null
         },
         init: function () {
-            var that = this,
-                layout;
+            var that = this;
 
             this.options = $.extend({}, this.OPTIONS, options);
-            layout = this.options.layout || this.basicLayout;
+            this.board = this.generateBoard(this.options.layout || this.basicLayout);
             this.currentInput = this.options.initInput;
             this.currentCursorPosition = 0;
-
             this.currentInput.focus();
-            this.board = this.generateBoard(layout);
 
             // input focus handler
             $(':input').not('[type="reset"], [type="submit"]')
@@ -145,25 +142,22 @@ function Keyboard(options) {
         },
         basicLayout: {
             uppercase: {
-                row1: [{ value: "Q" }, { value: "W" }, { value: "E" }, { value: "R" }, { value: "T" }, { value: "Y" }, { value: "U" }, { value: "I" }, { value: "O" }, { value: "P" }],
+                row1: [{ value: "Q" }, { value: "W" }, { value: "E" }, { value: "R" }, { value: "T" }, { value: "Y" }, { value: "U" }, { value: "I" }, { value: "O" }, { value: "P" }, { value: "Delete", buttonClass: 'del', onclick: 'del' }],
                 row2: [{ value: "A" }, { value: "S" }, { value: "D" }, { value: "F" }, { value: "G" }, { value: "H" }, { value: "J" }, { value: "K" }, { value: "L" }],
-                row3: [{ value: "Z" }, { value: "X" }, { value: "C" }, { value: "V" }, { value: "B" }, { value: "N" }, { value: "M" }]
+                row3: [{ value: "Z" }, { value: "X" }, { value: "C" }, { value: "V" }, { value: "B" }, { value: "N" }, { value: "M" }],
+                row4: [{ value: "&nbsp;", buttonClass: 'spacebar' }]
             },
             // lowercase: {
-            //     row1: [{ value: "q" }, { value: "w" }, { value: "e" }, { value: "r" }, { value: "t" }, { value: "y" }, { value: "u" }, { value: "i" }, { value: "o" }, { value: "p" }],
+            //     row1: [{ value: "q" }, { value: "w" }, { value: "e" }, { value: "r" }, { value: "t" }, { value: "y" }, { value: "u" }, { value: "i" }, { value: "o" }, { value: "p" }, { value: "Delete", buttonClass: 'del', onclick: 'del' }],
             //     row2: [{ value: "a" }, { value: "s" }, { value: "d" }, { value: "f" }, { value: "g" }, { value: "h" }, { value: "j" }, { value: "k" }, { value: "l" }],
             //     row3: [{ value: "z" }, { value: "x" }, { value: "c" }, { value: "v" }, { value: "b" }, { value: "n" }, { value: "m" }]
             // },
             numeric: {
-                row1: [{ value: "1" }, { value: "2" }, { value: "3" }],
+                row1: [{ value: "7" }, { value: "8" }, { value: "9" }], 
                 row2: [{ value: "4" }, { value: "5" }, { value: "6" }],
-                row3: [{ value: "7" }, { value: "8" }, { value: "9" }],
+                row3: [{ value: "1" }, { value: "2" }, { value: "3" }],
                 row4: [{ value: "0" }]
             },
-            special: {
-                row1: [{ value: "&nbsp;", buttonClass: 'spacebar' }],
-                row2: [{ value: "Delete", buttonClass: 'del', onclick: 'del' }]
-            }
         }
     };
 }
