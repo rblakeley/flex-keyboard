@@ -141,16 +141,32 @@ function Keyboard(options) {
             };
         },
         submit: function () {
-            // @todo
+            var that = this;
+            
+            return function () {
+                that.currentInput.trigger('submit');
+            };
         },
         toggleCaps: function () {
             // @todo
         },
         cursorLeft: function () {
-            // @todo
+            var that = this;
+            
+            return function () {
+                that.currentCursorPosition -= 1;
+                if (that.currentCursorPosition < 0) { that.currentCursorPosition = 0; }
+            };
         },
         cursorRight: function () {
-            // @todo
+            var that = this;
+            
+            return function () {
+                that.currentCursorPosition += 1;
+                if (that.currentCursorPosition > that.currentInput.val().length) {
+                    that.currentCursorPosition = that.currentInput.val().length;
+                }
+            };
         },
         basicLayout: {
             uppercase: {
@@ -169,7 +185,7 @@ function Keyboard(options) {
                 row2: [{ value: "4" }, { value: "5" }, { value: "6" }],
                 row3: [{ value: "1" }, { value: "2" }, { value: "3" }],
                 row4: [{ value: "<i class='icon-cursor-left'></i>", buttonClass: "cursor-left", onclick: "cursorLeft" }, { value: "0" }, { value: "<i class='icon-cursor-right'></i>", buttonClass: "cursor-right", onclick: "cursorRight" }]
-            },
+            }
         }
     };
 }
