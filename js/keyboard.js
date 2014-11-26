@@ -104,7 +104,6 @@ function Keyboard(options) {
             var that = this,
                 $input = $('<input>', {
                     'name': 'test_input',
-                    'class': 'board-input',
                     'type': 'text',
                     'placeholder': 'Type something...'
                 }),
@@ -171,7 +170,21 @@ function Keyboard(options) {
             };
         },
         toggleCaps: function () {
-            // @todo
+            var that = this;
+
+            return function () {
+                // @todo
+                var $btn = $(this);
+                // var keys = ?
+
+                $btn.toggleClass('off');
+
+                if ($btn.hasClass('off')) {
+                    // keys.toLowerCase()
+                } else {
+                    // keys.toUpperCase();
+                }
+            };
         },
         cursorLeft: function () {
             var that = this;

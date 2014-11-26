@@ -1,4 +1,4 @@
-# onscreenkeyboard
+# flex-keyboard
 
 ## Vendor files
 
