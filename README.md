@@ -9,7 +9,7 @@
 
 ## Todo
 
-- [ ] show cursor
+- [x] show cursor after move
 - [ ] add clear out button
 - [ ] add special keys
     - [ ] submit

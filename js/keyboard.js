@@ -15,7 +15,7 @@ function Keyboard(options) {
             this.currentInput.focus();
 
             // input focus handler
-            $(':input').not('[type="reset"], [type="submit"]')
+            $('input[type="text"], input[type="text-area"], input[type="password"]')
                 .on('focus, click', function () {
                     var $input = that.currentInput = $(this);
 
@@ -101,7 +101,8 @@ function Keyboard(options) {
             return $button;
         },
         generateInput: function (container) {
-            var $input = $('<input>', {
+            var that = this,
+                $input = $('<input>', {
                     'name': 'test_input',
                     'class': 'board-input',
                     'type': 'text',
@@ -110,7 +111,8 @@ function Keyboard(options) {
                 $btnClear = $('<i>', {'class': 'icon-clear'});
 
             $btnClear.on('click', function () {
-                $input.val("");
+                $input.val("").focus();
+                that.currentCursorPosition = 0;
             });
             
             container.append($input);
@@ -133,8 +135,9 @@ function Keyboard(options) {
                         return [text.slice(0, position), character, text.slice(position)].join('');
                     }());
 
-                that.currentInput.val(output);
+                that.currentInput.val(output).focus();
                 that.currentCursorPosition += 1;
+                that.currentInput.setSelection(that.currentCursorPosition);
                 that.currentSelection = null;
             };
         },
@@ -153,9 +156,10 @@ function Keyboard(options) {
                         return [text.slice(0, position - 1), text.slice(position)].join('');
                     }());
 
-                that.currentInput.val(output);
+                that.currentInput.val(output).focus();
                 if (!selection) { that.currentCursorPosition -= 1; }
                 if (that.currentCursorPosition < 0) { that.currentCursorPosition = 0; }
+                that.currentInput.setSelection(that.currentCursorPosition);
                 that.currentSelection = null;
             };
         },
@@ -175,6 +179,9 @@ function Keyboard(options) {
             return function () {
                 that.currentCursorPosition -= 1;
                 if (that.currentCursorPosition < 0) { that.currentCursorPosition = 0; }
+
+                that.currentInput.focus();
+                that.currentInput.setSelection(that.currentCursorPosition);
             };
         },
         cursorRight: function () {
@@ -185,6 +192,9 @@ function Keyboard(options) {
                 if (that.currentCursorPosition > that.currentInput.val().length) {
                     that.currentCursorPosition = that.currentInput.val().length;
                 }
+
+                that.currentInput.focus();
+                that.currentInput.setSelection(that.currentCursorPosition);
             };
         },
         basicLayout: {
@@ -234,3 +244,12 @@ jQuery.fn.getSelection = function () {
 
     return text;
 };
+
+jQuery.fn.setSelection = function () {
+    var input = this[0],
+        start = arguments[0],
+        end = arguments[1];
+
+    if (!end) { end = start; }
+    input.setSelectionRange(start, end);
+}
