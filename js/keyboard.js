@@ -170,14 +170,16 @@ function Keyboard(options) {
             var that = this;
 
             return function () {
-                var $btn = $(this),
+                var $caps = $(this),
                     $keys = $('.key'),
                     pattern = /^[A-z]+$/,
                     character,
                     flag;
 
                 $keys.each(function (index, element) {
-                    if ($btn.hasClass('off')) {
+                    var $button = $(element).parent('.button');
+                    
+                    if ($caps.hasClass('off')) {
                         character = element.innerHTML.toUpperCase();
                     } else {
                         character = element.innerHTML.toLowerCase();
@@ -185,14 +187,18 @@ function Keyboard(options) {
 
                     flag = pattern.test(character);
 
-                    if (flag) { element.innerHTML = character; }
+                    if (flag) { 
+                        element.innerHTML = character; 
+                        $(element).parent('.button').off('click');
+                        $(element).parent('.button').on('click', that.write(character));
+                    }
                 });
 
-                $btn.toggleClass('off');
-                if ($btn.hasClass('off')) {
-                    $btn.html("<i class='icon-caps-off'></i>");
+                $caps.toggleClass('off');
+                if ($caps.hasClass('off')) {
+                    $caps.html("<i class='icon-caps-off'></i>");
                 } else {
-                    $btn.html("<i class='icon-caps'></i>");
+                    $caps.html("<i class='icon-caps'></i>");
                 }
             };
         },
