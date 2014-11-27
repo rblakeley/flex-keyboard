@@ -170,16 +170,29 @@ function Keyboard(options) {
             var that = this;
 
             return function () {
-                // @todo
-                var $btn = $(this);
-                // var keys = ?
+                var $btn = $(this),
+                    $keys = $('.key'),
+                    pattern = /^[A-z]+$/,
+                    character,
+                    flag;
+
+                $keys.each(function (index, element) {
+                    if ($btn.hasClass('off')) {
+                        character = element.innerHTML.toUpperCase();
+                    } else {
+                        character = element.innerHTML.toLowerCase();
+                    }
+
+                    flag = pattern.test(character);
+
+                    if (flag) { element.innerHTML = character; }
+                });
 
                 $btn.toggleClass('off');
-
                 if ($btn.hasClass('off')) {
-                    // keys.toLowerCase()
+                    $btn.html("<i class='icon-caps-off'></i>");
                 } else {
-                    // keys.toUpperCase();
+                    $btn.html("<i class='icon-caps'></i>");
                 }
             };
         },

@@ -20,9 +20,7 @@ Flex keyboard is an on-screen keyboard. The board is generated in "modifiers" wh
 ## Todo
 
 - [ ] fix cursor position to end of selection when cursor right
-- [ ] toggle caps
-- [x] cancel button
-- [x] accomodate physical keyboard use
+- [x] toggle caps
 - [ ] refactor modifier to array of arrays
 - [ ] disable tap zoom  
 - [ ] docs
