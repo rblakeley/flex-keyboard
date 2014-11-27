@@ -12,6 +12,7 @@
     font-size: 1.5em; line-height: 100%; letter-spacing: 0.04em; 
     color: #000;
 }
+#input_container input:focus { outline: none; }
 ::-webkit-input-placeholder { color: #989898; }
 ::-moz-placeholder { color: #989898; }
 :-ms-input-placeholder { color: #989898; }

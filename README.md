@@ -9,9 +9,10 @@
 
 ## Todo
 
+- [ ] fix cursor position to end of selection when cursor right
 - [ ] toggle caps
-- [ ] cancel button
-- [ ] accomodate physical keyboard use
+- [x] cancel button
+- [x] accomodate physical keyboard use
 - [ ] refactor modifier to array of arrays
 - [ ] disable tap zoom  
 - [ ] docs

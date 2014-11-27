@@ -14,32 +14,28 @@ function Keyboard(options) {
             this.currentCursorPosition = 0;
             this.currentInput.focus();
 
-            // input focus handler
             $('input[type="text"], input[type="text-area"], input[type="password"]')
                 .on('focus, click', function () {
                     var $input = that.currentInput = $(this);
 
                     that.currentCursorPosition = $input.getCursorPosition();
                     that.currentSelection = $input.getSelection();
-                    // @todo accomodate typing on physical keyboard
-                    // physical keyboard: write
-                    // Keyboard.currentInput[0].onkeypress = function (e) {
-                    //     e.preventDefault();
-                    //     var elem = $(".button[onclick='Keyboard.write(" + e.which + ");']");
-                    //     elem.click();
-                    // };
-                    // physical keyboard: delete
-                    // Keyboard.currentInput[0].onkeydown = function (e) {
-                    //     if (e.which === 8) {
-                    //         e.preventDefault();
-                    //         var elem = $(".button[onclick='Keyboard.del()']")[0];
-                    //         console.log(elem);
-                    //         elem.click();
-                    //     }
-                    // };
-                    console.log('keyboard is now focused on ' + that.currentInput.attr('name')
-                                + ' at pos(' + that.currentCursorPosition + ')');
                 });
+
+            this.currentInput[0].onkeydown = function (e) {
+                var text = String.fromCharCode(e.keyCode),
+                    $key = $('.button .key:contains(text)'),
+                    pattern = /^[ A-Za-z0-9_@./#&+-]*$/,
+                    flag = pattern.test(text);
+                
+                if (e.which === 8) {
+                    e.preventDefault();
+                    that.del()();
+                } else if (flag) {
+                    e.preventDefault();
+                    that.write(text)();
+                }
+            };
         },
         /**
          * Create the keyboard DOM.
@@ -105,7 +101,8 @@ function Keyboard(options) {
                 $input = $('<input>', {
                     'name': 'test_input',
                     'type': 'text',
-                    'placeholder': 'Type something...'
+                    'placeholder': 'Type something...',
+                    'max-length': 80
                 }),
                 $btnClear = $('<i>', {'class': 'icon-clear'});
 
