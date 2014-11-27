@@ -18,7 +18,7 @@
 :-ms-input-placeholder { color: #989898; }
 
 .board { padding: 0.125em 0; max-height: 100%; background: #ccc; }
-    .board-mod { display: flex; flex-direction: column; flex-grow: 1; } /* flex-shrink: 1; default */
+    .character-set { display: flex; flex-direction: column; flex-grow: 1; } /* flex-shrink: 1; default */
         .flex-row { display: flex; justify-content: center; } /* align-items: stretch; default */
             .button {
                 display: inline-block;

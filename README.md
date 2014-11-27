@@ -1,10 +1,20 @@
 # flex-keyboard
 
-## Vendor files
+Flex keyboard is an on-screen keyboard. The board is generated in "modifiers" which are character sets.
 
-- [normalize-3.0.2.css](https://github.com/necolas/normalize.css/)
-- [jquery-2.1.1.min.js](https://github.com/jquery/jquery)
-- [modernizr-2.8.3.min.js](https://github.com/Modernizr/Modernizr)
+## File Structure
+
+├── css
+|   ├── [normalize-3.0.2.css](https://github.com/necolas/normalize.css/)
+|   ├── keyboard.css
+|   └── main.css
+├── js
+|   ├── vendor
+|       ├── [jquery-2.1.1.min.js](https://github.com/jquery/jquery)
+|       └── [modernizr-2.8.3.min.js](https://github.com/Modernizr/Modernizr)
+|   ├── keyboard.js
+|   └── main.js
+└── index.html
 
 
 ## Todo
@@ -20,6 +30,11 @@
     - [ ] add rem and em usage
     - [ ] add fontello usage
     - [ ] warning for unsupported browsers: <IE9
+
+
+## Browser Support
+
+This is not supported by <IE9. An error message or warning will appear with outdated browsers.
 
 
 ## Acknowledgement

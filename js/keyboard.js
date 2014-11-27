@@ -40,21 +40,21 @@ function Keyboard(options) {
         /**
          * Create the keyboard DOM.
          * The layout parameter is an object which 
-         * is grouped by modifiers, each containing 
+         * contains character sets, each containing
          * rows of keys which are displayed together.
          */
         generateBoard: function (layout) {
             var that = this,
+                characterSet,
+                $charSetContainer;
                 $boardContainer = this.options.boardContainer,
-                $board = $('<div>', {'class': 'board'}),
-                modifier,
-                $modContainer;
+                $board = $('<div>', {'class': 'board'});
 
-            for (modifier in layout) {
-                if (layout.hasOwnProperty(modifier)) {
-                    $modContainer = $('<div>', {'class':  'board-mod ' + modifier });
+            for (characterSet in layout) {
+                if (layout.hasOwnProperty(characterSet)) {
+                    $charSetContainer = $('<div>', {'class':  'character-set ' + characterSet });
 
-                    $.each(layout[modifier], function createRow(rowName, keys) {
+                    $.each(layout[characterSet], function createRow(rowName, keys) {
                         var $row = $('<div>', {'class': 'flex-row'}),
                             i = 0,
                             $button;
@@ -65,10 +65,10 @@ function Keyboard(options) {
                             $row.append($button);
                         }
 
-                        $modContainer.append($row);
+                        $charSetContainer.append($row);
                     });
 
-                    $board.append($modContainer);
+                    $board.append($charSetContainer);
                 }
             }
 
@@ -236,7 +236,6 @@ jQuery.fn.getCursorPosition = function () {
     if (typeof input.selectionStart === 'number') {
         position = input.selectionStart;
     }
-    // @todo support <IE9
 
     return position;
 };
@@ -250,7 +249,6 @@ jQuery.fn.getSelection = function () {
             && typeof input.selectionEnd === 'number') {
         text = input.value.substring(input.selectionStart, input.selectionEnd);
     }
-    // @todo support <IE9
 
     return text;
 };
