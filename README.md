@@ -4,25 +4,31 @@ Flex keyboard is an on-screen keyboard. The board is generated in "modifiers" wh
 
 ## File Structure
 
-├── css  
-|   ├── [normalize-3.0.2.css](https://github.com/necolas/normalize.css/)  
-|   ├── keyboard.css  
-|   └── main.css  
-├── js  
-|   ├── vendor  
-|       ├── [jquery-2.1.1.min.js](https://github.com/jquery/jquery)  
-|       └── [modernizr-2.8.3.min.js](https://github.com/Modernizr/Modernizr)  
-|   ├── keyboard.js  
-|   └── main.js  
+```
+├── css
+|   ├── [normalize-3.0.2.css](https://github.com/necolas/normalize.css/)
+|   ├── keyboard.css
+|   └── main.css
+├── js
+|   ├── vendor
+|       ├── [jquery-2.1.1.min.js](https://github.com/jquery/jquery)
+|       └── [modernizr-2.8.3.min.js](https://github.com/Modernizr/Modernizr)
+|   ├── keyboard.js
+|   └── main.js
 └── index.html
-
+```
 
 ## Todo
 
-- [ ] fix cursor position to end of selection when cursor right
-- [x] toggle caps
+- [ ] cursor position after selection
+    - [ ] cursor left -> selection left
+    - [ ] cursor right -> selection end
+    - [ ] accomodate physical keyboard selection
+    - [ ] refactor currentSelection = null
+    - [x] cancel selection if cursor moves
 - [ ] refactor modifier to array of arrays
-- [ ] disable tap zoom  
+- [ ] disable tap zoom
+- [ ] multiple inputs
 - [ ] docs
     - [ ] add optional layout parameter usage
     - [ ] add rem and em usage
