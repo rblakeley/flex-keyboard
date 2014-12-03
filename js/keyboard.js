@@ -182,7 +182,7 @@
                 return function () {
                     var $caps = $(this),
                         $keys = $('.key'),
-                        pattern = /^[A-z]+$/,
+                        pattern = /^[A-z]$/,
                         character,
                         flag;
 
