@@ -14,7 +14,6 @@
                                                 this.options.layout || this.basicLayout);
                 this.currentInput = this.generateInput(this.options.inputContainer);
                 this.currentCursorPosition = 0;
-                this.currentInput.focus();
             },
             /**
              * Create the keyboard DOM.
@@ -50,7 +49,9 @@
                     }
                 }
 
-                return container.append($board);
+                container.append($board);
+
+                return $board;
             },
             /**
              * Create the key DOM.
@@ -89,7 +90,9 @@
                     var $this = that.currentInput = $(this);
                     that.currentCursorPosition = $this.getCursorPosition();
                     that.currentSelection = $this.getSelection();
+                    
                     that.board.fadeIn(100);
+                    $btnHide.fadeIn(100);
                 });
 
                 $input[0].onkeydown = function (e) {
@@ -113,6 +116,7 @@
 
                 $btnHide.on('click', function () {
                     that.board.fadeOut(100);
+                    $btnHide.fadeOut(100);
                 });
 
                 container.append($input);

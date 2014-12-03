@@ -17,7 +17,7 @@
 ::-moz-placeholder { color: #989898; }
 :-ms-input-placeholder { color: #989898; }
 
-.board { padding: 0.125em 0; max-height: 100%; background: #ccc; }
+.board { display: none; padding: 0.125em 0; max-height: 100%; background: #ccc; }
     .character-set { display: flex; flex-direction: column; flex-grow: 1; } /* flex-shrink: 1; default */
         .flex-row { display: flex; justify-content: center; } /* align-items: stretch; default */
             .button {
@@ -64,8 +64,8 @@
 .icon-delete { font-size: 1.83em; }
 [class^="icon-cursor-"] { font-size: 0.875em; }
 
-button.hide { 
-    position: absolute;
+button.hide {
+    position: absolute; display: none;
     top: 0; right: 0; bottom: 0;
     padding: 0; width: 5.2em;
     font-size: 1em; font-weight: lighter;
