@@ -23,7 +23,7 @@ Flex keyboard is a responsive on-screen keyboard.
 ### Todo
 
 - [ ] visual state of clear button
-- [ ] 'go' button lowercase breaking submit method
+- [x] caps regex should not match 'GO'
 - [ ] text selection
     - [ ] cursor left -> selection start
     - [ ] cursor right -> selection end

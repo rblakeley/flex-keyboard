@@ -6,13 +6,12 @@
     display: block;
     padding: 0.278em 1em;
     height: 100%; width: 100%;
-    box-sizing: border-box; border: #ccc 2px solid;
+    box-sizing: border-box; border: #ccc 2px solid; outline: none;
     text-align: left;
     font-family: helvetica, arial, sans-serif;
     font-size: 1.5em; line-height: 100%; letter-spacing: 0.04em; 
     color: #000;
 }
-#input_container input:focus { outline: none; }
 ::-webkit-input-placeholder { color: #989898; }
 ::-moz-placeholder { color: #989898; }
 :-ms-input-placeholder { color: #989898; }
@@ -32,7 +31,6 @@
             .button:active { margin-top: 0.25em; margin-bottom: -0.125em; box-shadow: none; }
                 .key { 
                     width: 100%; height: 100%;
-                    /*font-family: helvetica, arial, sans-serif;*/
                     text-align: center;
                     -moz-user-select: none;
                     -webkit-user-select: none;
@@ -41,29 +39,30 @@
                     [class^="icon-"]:before,
                     [class*=" icon-"]:before { display: inline; line-height: 100%; }
 
-.uppercase,
-.numeric { display: inline-block; vertical-align: top; }
-.numeric { margin-left: 1.25em; }
+    .uppercase,
+    .numeric { display: inline-block; vertical-align: top; }
+    .numeric { margin-left: 1.25em; }
 
-.button.delete { width: 5.3em; color: #676767; }
-.button.go { width: 5.3em; background: linear-gradient(#208153, #156841); color: #fff; }
-.button.caps { color: #000; }
-.button.spacebar { width: 22.042em; }
-.button.blank,
-.button.cursor-left,
-.button.cursor-right { background-color: #676767; color: #fff; }
-.button.blank:active { margin: 0.125em; box-shadow: 0 0.083em #999; }
+            .button.delete { width: 5.3em; color: #676767; }
+            .button.go { width: 5.3em; background: linear-gradient(#208153, #156841); color: #fff; }
+            .button.caps { color: #000; }
+            .button.spacebar { width: 22.042em; }
+            .button.blank,
+            .button.cursor-left,
+            .button.cursor-right { background-color: #676767; color: #fff; }
+            .button.blank:active { margin: 0.125em; box-shadow: 0 0.083em #999; }
+
+                    .icon-delete { font-size: 1.83em; }
+                    [class^="icon-cursor-"] { font-size: 0.875em; }
 
 .icon-spyglass {}
 .icon-clear {
-    position: absolute; top: 50%; right: 4.67em;
+    position: absolute; display: none;
+    top: 50%; right: 4.67em;
     margin-top: -0.55em;
     font-size: 1.25em;
     color: #b3b3b3;
 }
-.icon-delete { font-size: 1.83em; }
-[class^="icon-cursor-"] { font-size: 0.875em; }
-
 button.hide {
     position: absolute; display: none;
     top: 0; right: 0; bottom: 0;

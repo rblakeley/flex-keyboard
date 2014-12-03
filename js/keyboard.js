@@ -14,6 +14,8 @@
                                                 this.options.layout || this.basicLayout);
                 this.currentInput = this.generateInput(this.options.inputContainer);
                 this.currentCursorPosition = 0;
+
+                console.log(this.currentInput);
             },
             /**
              * Create the keyboard DOM.
@@ -81,7 +83,7 @@
                         'name': 'test_input',
                         'type': 'text',
                         'placeholder': 'Type something...',
-                        'max-length': 80
+                        'max-length': 80 
                     }),
                     $btnClear = $('<i>', {'class': 'icon-clear'}),
                     $btnHide = $('<button>', {'class': 'hide', html: "cancel"});
@@ -112,7 +114,10 @@
                 $btnClear.on('click', function () {
                     $input.val("").focus();
                     that.currentCursorPosition = 0;
+                    $(this).fadeOut(100);
                 });
+                $input.data('showClearBtn', function () { $btnClear.fadeIn(100); });
+                $input.data('hideClearBtn', function () { $btnClear.fadeOut(100); });
 
                 $btnHide.on('click', function () {
                     that.board.fadeOut(100);
@@ -143,6 +148,7 @@
                     that.currentInput.val(output).focus();
                     that.currentCursorPosition += 1;
                     that.currentInput.setSelection(that.currentCursorPosition);
+                    that.currentInput.data('showClearBtn')();
                     that.currentSelection = null;
                 };
             },
@@ -165,6 +171,7 @@
                     if (!selection) { that.currentCursorPosition -= 1; }
                     if (that.currentCursorPosition < 0) { that.currentCursorPosition = 0; }
                     that.currentInput.setSelection(that.currentCursorPosition);
+                    if (!output) { that.currentInput.data('hideClearBtn')(); }
                     that.currentSelection = null;
                 };
             },
