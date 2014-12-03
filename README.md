@@ -3,6 +3,23 @@
 Flex keyboard is a responsive on-screen keyboard.
 
 
+### Files
+
+```
+├── css
+|   ├── [normalize-3.0.2.css](https://github.com/necolas/normalize.css/)
+|   ├── [fontello-embedded.css](https://github.com/fontello/fontello)
+|   ├── keyboard.css
+|   └── main.css
+├── js
+|   ├── vendor
+|       ├── [modernizr-2.8.3.min.js](https://github.com/Modernizr/Modernizr)
+|       └── [jquery-2.1.1.min.js](https://github.com/jquery/jquery)
+|   ├── keyboard.js
+|   └── main.js
+└── index.html
+```
+
 ### Todo
 
 - [ ] text selection
@@ -23,24 +40,6 @@ Flex keyboard is a responsive on-screen keyboard.
     - [ ] browser support: IE9+
 
 
-### Files
-
-```
-├── css
-|   ├── [normalize-3.0.2.css](https://github.com/necolas/normalize.css/)
-|   ├── [fontello-embedded.css](https://github.com/fontello/fontello)
-|   ├── keyboard.css
-|   └── main.css
-├── js
-|   ├── vendor
-|       ├── [modernizr-2.8.3.min.js](https://github.com/Modernizr/Modernizr)
-|       └── [jquery-2.1.1.min.js](https://github.com/jquery/jquery)
-|   ├── keyboard.js
-|   └── main.js
-└── index.html
-```
-
-
-## Acknowledgement
+#### Acknowledgement
 
 This project was originally forked and detached from [https://github.com/sdeering/onscreenkeyboard](https://github.com/sdeering/onscreenkeyboard).
