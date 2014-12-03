@@ -9,34 +9,12 @@
                 layout: null
             },
             init: function () {
-                var that = this;
-
                 this.options = $.extend({}, this.OPTIONS, options);
-                this.board = this.generateBoard(this.options.layout || this.basicLayout);
+                this.board = this.generateBoard(this.options.boardContainer,
+                                                this.options.layout || this.basicLayout);
                 this.currentInput = this.generateInput(this.options.inputContainer);
                 this.currentCursorPosition = 0;
                 this.currentInput.focus();
-
-                this.currentInput.on('focus, click', function () {
-                    var $input = that.currentInput = $(this);
-
-                    that.currentCursorPosition = $input.getCursorPosition();
-                    that.currentSelection = $input.getSelection();
-                });
-
-                this.currentInput[0].onkeydown = function (e) {
-                    var text = String.fromCharCode(e.keyCode),
-                        pattern = /^[ A-Za-z0-9_@.\/#&+\-]*$/,
-                        flag = pattern.test(text);
-
-                    if (e.which === 8) {
-                        e.preventDefault();
-                        that.del()();
-                    } else if (flag) {
-                        e.preventDefault();
-                        that.write(text)();
-                    }
-                };
             },
             /**
              * Create the keyboard DOM.
@@ -44,11 +22,10 @@
              * contains character sets, each containing
              * rows of keys which are displayed together.
              */
-            generateBoard: function (layout) {
+            generateBoard: function (container, layout) {
                 var that = this,
                     characterSet,
                     $charSetContainer,
-                    $boardContainer = this.options.boardContainer,
                     $board = $('<div>', {'class': 'board'});
 
                 for (characterSet in layout) {
@@ -73,7 +50,7 @@
                     }
                 }
 
-                return $boardContainer.append($board);
+                return container.append($board);
             },
             /**
              * Create the key DOM.
@@ -105,15 +82,42 @@
                         'placeholder': 'Type something...',
                         'max-length': 80
                     }),
-                    $btnClear = $('<i>', {'class': 'icon-clear'});
+                    $btnClear = $('<i>', {'class': 'icon-clear'}),
+                    $btnHide = $('<button>', {'class': 'hide', html: "cancel"});
+
+                $input.on('focus, click', function () {
+                    var $this = that.currentInput = $(this);
+                    that.currentCursorPosition = $this.getCursorPosition();
+                    that.currentSelection = $this.getSelection();
+                    that.board.fadeIn(100);
+                });
+
+                $input[0].onkeydown = function (e) {
+                    var text = String.fromCharCode(e.keyCode),
+                        pattern = /^[ A-Za-z0-9_@.\/#&+\-]*$/,
+                        flag = pattern.test(text);
+
+                    if (e.which === 8) {
+                        e.preventDefault();
+                        that.del()();
+                    } else if (flag) {
+                        e.preventDefault();
+                        that.write(text)();
+                    }
+                };
 
                 $btnClear.on('click', function () {
                     $input.val("").focus();
                     that.currentCursorPosition = 0;
                 });
 
+                $btnHide.on('click', function () {
+                    that.board.fadeOut(100);
+                });
+
                 container.append($input);
                 container.append($btnClear);
+                container.append($btnHide);
 
                 return $input;
             },
@@ -239,11 +243,6 @@
                     row3: [{ value: "<i class='icon-caps'></i>", buttonClass: "caps", onclick: "toggleCaps" }, { value: "Z" }, { value: "X" }, { value: "C" }, { value: "V" }, { value: "B" }, { value: "N" }, { value: "M" }, { value: "," }, { value: "."}, { value: "\'" }, { value: "+" }],
                     row4: [{ value: "", buttonClass: "blank" }, { value: "&nbsp;", buttonClass: 'spacebar' }, { value: "!" }, { value: "?" }, { value: "-" }]
                 },
-                // lowercase: {
-                //     row1: [{ value: "q" }, { value: "w" }, { value: "e" }, { value: "r" }, { value: "t" }, { value: "y" }, { value: "u" }, { value: "i" }, { value: "o" }, { value: "p" }, { value: "Delete", buttonClass: 'del', onclick: 'del' }],
-                //     row2: [{ value: "a" }, { value: "s" }, { value: "d" }, { value: "f" }, { value: "g" }, { value: "h" }, { value: "j" }, { value: "k" }, { value: "l" }],
-                //     row3: [{ value: "z" }, { value: "x" }, { value: "c" }, { value: "v" }, { value: "b" }, { value: "n" }, { value: "m" }]
-                // },
                 numeric: {
                     row1: [{ value: "7" }, { value: "8" }, { value: "9" }],
                     row2: [{ value: "4" }, { value: "5" }, { value: "6" }],
@@ -253,39 +252,6 @@
             }
         };
     }
-
-    jQuery.fn.getCursorPosition = function () {
-        var input = this[0],
-            position;
-
-        if (typeof input.selectionStart === 'number') {
-            position = input.selectionStart;
-        }
-
-        return position;
-    };
-
-    jQuery.fn.getSelection = function () {
-        var input = this[0],
-            text;
-
-        if (window.getSelection
-                && typeof input.selectionStart === 'number'
-                && typeof input.selectionEnd === 'number') {
-            text = input.value.substring(input.selectionStart, input.selectionEnd);
-        }
-
-        return text;
-    };
-
-    jQuery.fn.setSelection = function () {
-        var input = this[0],
-            start = arguments[0],
-            end = arguments[1];
-
-        if (!end) { end = start; }
-        input.setSelectionRange(start, end);
-    };
 
     if (typeof define === 'function' && define.amd) {
         define(function () {
@@ -298,3 +264,36 @@
     }
 
 }());
+
+jQuery.fn.getCursorPosition = function () {
+    var input = this[0],
+        position;
+
+    if (typeof input.selectionStart === 'number') {
+        position = input.selectionStart;
+    }
+
+    return position;
+};
+
+jQuery.fn.getSelection = function () {
+    var input = this[0],
+        text;
+
+    if (window.getSelection
+            && typeof input.selectionStart === 'number'
+            && typeof input.selectionEnd === 'number') {
+        text = input.value.substring(input.selectionStart, input.selectionEnd);
+    }
+
+    return text;
+};
+
+jQuery.fn.setSelection = function () {
+    var input = this[0],
+        start = arguments[0],
+        end = arguments[1];
+
+    if (!end) { end = start; }
+    input.setSelectionRange(start, end);
+};
