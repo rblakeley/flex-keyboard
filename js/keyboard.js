@@ -24,6 +24,7 @@
                         'placeholder': 'Search for Product',
                         'max-length': 80 
                     }),
+                    $spyglass = $('<i>', {'class': 'icon-spyglass'}),
                     $btnClear = $('<i>', {'class': 'icon-clear'}),
                     $btnCancel = $('<button>', {'class': 'cancel', html: "cancel"});
 
@@ -56,6 +57,7 @@
                 });
 
                 container.append($input);
+                container.append($spyglass);
                 container.append($btnClear);
                 container.append($btnCancel);
 

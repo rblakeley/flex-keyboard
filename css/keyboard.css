@@ -4,7 +4,7 @@
 
 #input_container input {
     display: block;
-    padding: 0.278em 1em;
+    padding: 0.278em 1em 0.278em 2.038em;
     height: 100%; width: 100%;
     box-sizing: border-box; border: #ccc 2px solid; outline: none;
     text-align: left;
@@ -12,7 +12,7 @@
     font-size: 1.5em; line-height: 100%; letter-spacing: 0.04em; 
     color: #000;
 }
-::-webkit-input-placeholder { color: #989898; }
+::-webkit-input-placeholder { line-height: 100%; color: #989898; }
 ::-moz-placeholder { color: #989898; }
 :-ms-input-placeholder { color: #989898; }
 
@@ -56,7 +56,11 @@
 [class^="icon-cursor-"] { font-size: 0.875em; }
 
 .icon-spyglass {
-    /* @todo */
+    position: absolute;
+    top: 50%; left: 0.55em;
+    margin-top: -0.6em;
+    font-size: 1.18em;
+    color: #156841;
 }
 .icon-clear {
     position: absolute;
