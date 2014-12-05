@@ -15,7 +15,7 @@ $(document).ready(function () {
     $('#input_container input').on('click', function () {
         $hint.hide();
     });
-    $('#input_container button.hide').on('click', function (e) {
+    $('#input_container button.cancel').on('click', function (e) {
         setTimeout(function () {
             $hint.fadeIn()
         }, 200);

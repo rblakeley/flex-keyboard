@@ -10,12 +10,56 @@
             },
             init: function () {
                 this.options = $.extend({}, this.OPTIONS, options);
+                this.currentInput = this.generateInput(this.options.inputContainer);
                 this.board = this.generateBoard(this.options.boardContainer,
                                                 this.options.layout || this.basicLayout);
-                this.currentInput = this.generateInput(this.options.inputContainer);
                 this.currentCursorPosition = 0;
+            },
+            generateInput: function (container) {
+                var that = this,
+                    $input = $('<input>', {
+                        'id': 'search_input',
+                        'name': 'search_input',
+                        'type': 'text',
+                        'placeholder': 'Search for Product',
+                        'max-length': 80 
+                    }),
+                    $btnClear = $('<i>', {'class': 'icon-clear'}),
+                    $btnCancel = $('<button>', {'class': 'cancel', html: "cancel"});
 
-                console.log(this.currentInput);
+                $input.on('focus, click', function () {
+                    var $this = that.currentInput = $(this);
+                    that.currentCursorPosition = $this.getCursorPosition();
+                    that.currentSelection = $this.getSelection();
+                    container.addClass('focused');
+                });
+
+                $input[0].onkeydown = function (e) {
+                    var text = String.fromCharCode(e.keyCode),
+                        pattern = /^[ A-Za-z0-9_@.\/#&+\-]*$/,
+                        flag = pattern.test(text);
+
+                    if (e.which === 8) {
+                        e.preventDefault();
+                        that.del()();
+                    } else if (flag) {
+                        e.preventDefault();
+                        that.write(text)();
+                    }
+                };
+
+                $btnClear.on('click', function () {
+                    that.clear();
+                });
+                $btnCancel.on('click', function () {
+                    that.cancel();
+                });
+
+                container.append($input);
+                container.append($btnClear);
+                container.append($btnCancel);
+
+                return $input;
             },
             /**
              * Create the keyboard DOM.
@@ -77,58 +121,22 @@
 
                 return $button;
             },
-            generateInput: function (container) {
-                var that = this,
-                    $input = $('<input>', {
-                        'name': 'test_input',
-                        'type': 'text',
-                        'placeholder': 'Type something...',
-                        'max-length': 80 
-                    }),
-                    $btnClear = $('<i>', {'class': 'icon-clear'}),
-                    $btnHide = $('<button>', {'class': 'hide', html: "cancel"});
+            clear: function () {
+                this.currentInput.val("").focus();
+                this.currentCursorPosition = 0;
+                this.options.inputContainer.removeClass('not-empty');
+            },
+            cancel: function () {
+                this.clear();
+                this.options.inputContainer.removeClass('focused');
+            },
+            submit: function () {
+                var that = this;
 
-                $input.on('focus, click', function () {
-                    var $this = that.currentInput = $(this);
-                    that.currentCursorPosition = $this.getCursorPosition();
-                    that.currentSelection = $this.getSelection();
-                    
-                    that.board.fadeIn(100);
-                    $btnHide.fadeIn(100);
-                });
-
-                $input[0].onkeydown = function (e) {
-                    var text = String.fromCharCode(e.keyCode),
-                        pattern = /^[ A-Za-z0-9_@.\/#&+\-]*$/,
-                        flag = pattern.test(text);
-
-                    if (e.which === 8) {
-                        e.preventDefault();
-                        that.del()();
-                    } else if (flag) {
-                        e.preventDefault();
-                        that.write(text)();
-                    }
+                return function () {
+                    that.currentInput.trigger('submit');
+                    that.currentSelection = null;
                 };
-
-                $btnClear.on('click', function () {
-                    $input.val("").focus();
-                    that.currentCursorPosition = 0;
-                    $(this).fadeOut(100);
-                });
-                $input.data('showClearBtn', function () { $btnClear.fadeIn(100); });
-                $input.data('hideClearBtn', function () { $btnClear.fadeOut(100); });
-
-                $btnHide.on('click', function () {
-                    that.board.fadeOut(100);
-                    $btnHide.fadeOut(100);
-                });
-
-                container.append($input);
-                container.append($btnClear);
-                container.append($btnHide);
-
-                return $input;
             },
             write: function (character) {
                 var that = this;
@@ -148,7 +156,7 @@
                     that.currentInput.val(output).focus();
                     that.currentCursorPosition += 1;
                     that.currentInput.setSelection(that.currentCursorPosition);
-                    that.currentInput.data('showClearBtn')();
+                    that.options.inputContainer.addClass('not-empty');
                     that.currentSelection = null;
                 };
             },
@@ -171,15 +179,7 @@
                     if (!selection) { that.currentCursorPosition -= 1; }
                     if (that.currentCursorPosition < 0) { that.currentCursorPosition = 0; }
                     that.currentInput.setSelection(that.currentCursorPosition);
-                    if (!output) { that.currentInput.data('hideClearBtn')(); }
-                    that.currentSelection = null;
-                };
-            },
-            submit: function () {
-                var that = this;
-
-                return function () {
-                    that.currentInput.trigger('submit');
+                    if (!output) { that.options.inputContainer.removeClass('not-empty'); }
                     that.currentSelection = null;
                 };
             },
