@@ -31,6 +31,7 @@ Flex keyboard is a responsive on-screen keyboard.
     - [ ] refactor currentSelection = null
     - [x] cancel selection if cursor moves
 - [ ] keyboard arrow keys trigger buttons
+- [ ] keyboard enter trigger 'submit'
 - [ ] allow normal command key bindings
 - [ ] refactor modifier to array of arrays
 - [ ] disable tap zoom
